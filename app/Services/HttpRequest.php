@@ -43,6 +43,14 @@ class HttpRequest
     }
 
 
+    public function addHttpHeaders(array $headers): self
+    {
+        $this->headers = array_merge($this->headers, $headers);
+
+        return $this;
+    }
+
+
     public function setTimeout(int $seconds)
     {
         $this->timeout = $seconds;

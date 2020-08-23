@@ -22,6 +22,11 @@ class Router
         ],
         [
             self::KEY_REQUEST_METHOD => self::REQUEST_METHOD_GET,
+            self::KEY_ROUTE          => 'send_http_request_with_json_parameters',
+            self::KEY_CALLBACK       => [Controller::class, 'sendHttpRequestWithJsonParameters'],
+        ],
+        [
+            self::KEY_REQUEST_METHOD => self::REQUEST_METHOD_GET,
             self::KEY_ROUTE          => 'send_json',
             self::KEY_CALLBACK       => [Controller::class, 'getSendJson'],
         ],

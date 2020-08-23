@@ -18,6 +18,10 @@ Send custom HTTP headers
 
      http://homestead.test/send_http_request?request_method=GET&url=https://google.com&http_headers=Content-Type: text/html; charset=ISO-8859-1
 
+Another option
+
+      http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://google.com","http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
+
 
 Comming soon
 
@@ -25,7 +29,6 @@ Send JSON payloads
 All JSON payloads must be passed in as associative arrays
 Any JSON conversion errors must throw an exception
 Erroneous HTTP response codes (e.g. 4xx, 5xx) must throw an exception
-
 
 
 

@@ -8,7 +8,7 @@ All code is hand-written.
 No explicit use of CURL (e.g. curl_exec()) has been used.
 
 
-#### Example of use 
+#### It can
 
 * Send HTTP requests to the given URL using different methods, such as GET, POST, etc.
 * Retrieve/parse HTTP response headers
@@ -16,7 +16,9 @@ No explicit use of CURL (e.g. curl_exec()) has been used.
 * All JSON payloads have been returned as associative arrays
 * Send custom HTTP headers
 
-     http://homestead.test/send_http_request?request_method=GET&url=https://google.com&http_headers=Content-Type: text/html; charset=ISO-8859-1
+#### Example of use 
+
+      http://homestead.test/send_http_request?request_method=GET&url=https://google.com&http_headers=Content-Type: text/html; charset=ISO-8859-1
 
 Another option
 

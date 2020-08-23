@@ -34,8 +34,24 @@ class Response
     }
 
 
+    private static function utf8_encode(array $in): array
+    {
+        foreach ($in as $key => $record) {
+            if (is_array($record)) {
+                $in[$key] = self::utf8_encode($record);
+            } else {
+                $in[$key] = utf8_encode($record);
+            }
+        }
+
+        return $in;
+    }
+
+
     private function json(array $array): void
     {
+        $array = self::utf8_encode($array);
+
         $json = json_encode($array);
 
         header('Cache-Control: nocache, no-cache, no-store, max-age=0, must-revalidate');

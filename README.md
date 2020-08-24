@@ -16,6 +16,7 @@ No explicit use of CURL (e.g. curl_exec()) has been used.
 * All JSON payloads have been returned as associative arrays
 * Send custom HTTP headers
 * Erroneous HTTP response codes (e.g. 4xx, 5xx) throw an exception
+* Any JSON conversion errors throw an exception
 
 #### Example of use 
 
@@ -34,7 +35,6 @@ Comming soon
 
 * Send JSON payloads
 * All JSON payloads must be passed in as associative arrays
-* Any JSON conversion errors must throw an exception
 
 
 

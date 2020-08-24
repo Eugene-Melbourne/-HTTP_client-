@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\JsonDecodeException;
 use App\Request;
 use App\Services\HttpRequest;
 use App\Services\HttpResponse;
@@ -40,6 +41,10 @@ class Controller
     public static function sendHttpRequestWithJsonParameters(Request $request): array
     {
         $params = json_decode($request->q, true);
+        if (is_null($params)) {
+
+            throw new JsonDecodeException();
+        }
 
         $url           = $params['url'];
         $requestMethod = $params['request_method'];

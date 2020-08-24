@@ -8,6 +8,7 @@ use ErrorException;
 /**
  * @property string         $url
  * @property array          $headers
+ * @property array          $body
  * @property string         $requestMethod
  * @property int            $timeout                in seconds
  */
@@ -15,10 +16,10 @@ class HttpRequest
 {
 
     private $url;
-    private $headers = [];
     private $requestMethod;
     private $timeout;
-    private $body;
+    private $headers = [];
+    private $body    = [];
 
 
     public function setUrl(string $url): self
@@ -69,7 +70,7 @@ class HttpRequest
 
     public function setBody(array $body = null): self
     {
-        $this->body = $body;
+        $this->body = $body ?? [];
 
         return $this;
     }
@@ -95,10 +96,10 @@ class HttpRequest
         $contentType = trim(explode(';', $contentType)[0]); // for text/html; charset=ISO-8859-1
 
         if ($contentType === "application/json") {
-            $content = json_encode($this->body ?? []);
+            $content = json_encode($this->body);
         }
         if ($contentType === "application/x-www-form-urlencoded") {
-            $content = http_build_query($this->body ?? []);
+            $content = http_build_query($this->body);
         }
 
         //$this->headers['Host']           = parse_url($this->url, PHP_URL_HOST);

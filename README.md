@@ -49,4 +49,16 @@ body
             ]
         }
 
+the last example
 
+http://homestead.test/send_http_request_with_json_parameters_and_json_payload?q={"request_method":"POST","url":"https://www.mydomain.com/assessment-endpoint.php","http_headers":["Authorization: Bearer TOKEN", "Content-type: application/json"]}
+
+        {
+          "name": "Eugene",
+          "email": "test@gmail.com",
+          "url": "https://github.com/Eugene-Melbourne/-HTTP_client-"
+        }
+
+Example response :
+
+    400 Bad Request

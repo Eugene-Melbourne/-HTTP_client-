@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Exceptions\JsonDecodeException;
 use App\Request;
 use App\Services\HttpRequest;
 use App\Services\HttpResponse;
+use App\Services\JsonManager;
 
 class Controller
 {
@@ -17,11 +17,7 @@ class Controller
         $httpHeaders   = $request->http_headers;
         $requestMethod = $request->request_method;
 
-        $httpHeaders = json_decode($request->http_headers, true);
-        if (is_null($httpHeaders)) {
-
-            throw new JsonDecodeException('decoding params');
-        }
+        $httpHeaders = (new JsonManager())->json_decode($request->http_headers, true);
 
         $httpRequest = (new HttpRequest())
             ->setUrl($url)
@@ -49,11 +45,7 @@ class Controller
 
     public static function sendHttpRequestWithJsonParameters(Request $request): array
     {
-        $params = json_decode($request->q, true);
-        if (is_null($params)) {
-
-            throw new JsonDecodeException('decoding params');
-        }
+        $params = (new JsonManager())->json_decode($request->q, true);
 
         $url           = $params['url'];
         $requestMethod = $params['request_method'];
@@ -81,18 +73,10 @@ class Controller
 
     public static function getSendJson(Request $request): array
     {
-        $params = json_decode($request->q, true);
-        if (is_null($params)) {
-
-            throw new JsonDecodeException('decoding params');
-        }
+        $params = (new JsonManager())->json_decode($request->q, true);
 
         $requestBody = file_get_contents('php://input');
-        $requestBody = json_decode($requestBody, true);
-        if (is_null($requestBody)) {
-
-            throw new JsonDecodeException('decoding body');
-        }
+        $requestBody = (new JsonManager())->json_decode($requestBody, true);
 
         $url           = $params['url'];
         $requestMethod = $params['request_method'];
@@ -109,7 +93,7 @@ class Controller
         $httpResponse = $httpRequest->makeRequest();
 
         $responseBody = $httpResponse->getHttpResponseBody();
-        $responseBody = json_decode($responseBody, true);
+        $responseBody = (new JsonManager())->json_decode($responseBody, true);
 
         return [
             'function'              => __FUNCTION__,

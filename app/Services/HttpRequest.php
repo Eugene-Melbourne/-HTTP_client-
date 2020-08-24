@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\HttpRequestFailedException;
+use App\Services\JsonManager;
 use ErrorException;
 
 /**
@@ -96,7 +97,7 @@ class HttpRequest
         $contentType = trim(explode(';', $contentType)[0]); // for text/html; charset=ISO-8859-1
 
         if ($contentType === "application/json") {
-            $content = json_encode($this->body);
+            $content = (new JsonManager())->json_encode($this->body);
         }
         if ($contentType === "application/x-www-form-urlencoded") {
             $content = http_build_query($this->body);

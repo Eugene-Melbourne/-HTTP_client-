@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\HttpRequestFailedException;
+use ErrorException;
 
 /**
  * @property string         $url
@@ -70,8 +71,8 @@ class HttpRequest
         $glue        = "\r\n";
         $httpHeaders = implode($glue, $this->headers);
 
-        $content  = [];
-        $options  = [
+        $content = [];
+        $options = [
             'http' => [
                 'method'  => $this->requestMethod,
                 'header'  => $httpHeaders,
@@ -79,8 +80,13 @@ class HttpRequest
                 'timeout' => $this->timeout, //seconds
             ]
         ];
-        $context  = stream_context_create($options);
-        $response = file_get_contents($this->url, false, $context, 0);
+        $context = stream_context_create($options);
+        try {
+            $response = file_get_contents($this->url, false, $context, 0);
+        } catch (ErrorException $ex) {
+
+            throw new HttpRequestFailedException($ex->getMessage(), $ex->getCode(), $ex->getPrevious());
+        }
         if ($response === false) {
 
             throw new HttpRequestFailedException();

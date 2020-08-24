@@ -77,11 +77,14 @@ class HttpRequest
 
     public function makeRequest(): HttpResponse
     {
-        $glue        = "\r\n";
-        $httpHeaders = implode($glue, $this->headers);
+        $host          = parse_url($this->url, PHP_URL_HOST);
+        $content       = http_build_query($this->body ?? []);
+        $contentlength = strlen($content);
 
-
-        $content = http_build_query($this->body ?? []);
+        $this->headers[] = 'Content-Length: ' . $contentlength;
+        $this->headers[] = 'Host: ' . $host;
+        $glue            = "\r\n";
+        $httpHeaders     = implode($glue, $this->headers);
 
         $options = [
             'http' => [

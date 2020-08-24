@@ -49,9 +49,9 @@ body
         ]
     }
 
-The last example
+The final example
 
-    http://homestead.test/send_http_request_with_json_parameters_and_json_payload?q={"request_method":"POST","url":"https://www.mydomain.com/assessment-endpoint.php","http_headers":["Authorization: Bearer TOKEN", "Content-type: application/json"]}
+    http://homestead.test/send_http_request_with_json_parameters_and_json_payload?q={"request_method":"POST","url":"https://httpbin.org/post","http_headers":["Authorization: Bearer TOKEN", "Content-type: application/json"]}
 
 body 
 
@@ -63,4 +63,49 @@ body
 
 Example response :
 
-    400 Bad Request
+    {
+        "ok": "1",
+        "payload": {
+            "function": "getSendJson",
+            "request_method": "POST",
+            "url": "https://httpbin.org/post",
+            "http_request_headers": [
+                "Authorization: Bearer TOKEN",
+                "Content-type: application/json",
+                "Content-Length: 98",
+                "Host: httpbin.org"
+            ],
+            "request_body": {
+                "name": "Eugene",
+                "email": "test@gmail.com",
+                "url": "https://github.com/Eugene-Melbourne/-HTTP_client-"
+            },
+            "http_response_headers": [
+                "HTTP/1.1 200 OK",
+                "Date: Mon, 24 Aug 2020 03:25:07 GMT",
+                "Content-Type: application/json",
+                "Content-Length: 470",
+                "Connection: close",
+                "Server: gunicorn/19.9.0",
+                "Access-Control-Allow-Origin: *",
+                "Access-Control-Allow-Credentials: true"
+            ],
+            "response_string": "{\n  \"args\": {}, \n  \"data\": \"name=Eugene&email=test%40gmail.com&url=https%3A%2F%2Fgithub.com%2FEugene-Melbourne%2F-HTTP_client-\", \n  \"files\": {}, \n  \"form\": {}, \n  \"headers\": {\n    \"Authorization\": \"Bearer TOKEN\", \n    \"Content-Length\": \"98\", \n    \"Content-Type\": \"application/json\", \n    \"Host\": \"httpbin.org\", \n    \"X-Amzn-Trace-Id\": \"Root=1-5f433313-d089c8ecd1826d68ad928ca8\"\n  }, \n  \"json\": null, \n  \"origin\": \"124.183.144.55\", \n  \"url\": \"https://httpbin.org/post\"\n}\n",
+            "response": {
+                "args": [],
+                "data": "name=Eugene&email=test%40gmail.com&url=https%3A%2F%2Fgithub.com%2FEugene-Melbourne%2F-HTTP_client-",
+                "files": [],
+                "form": [],
+                "headers": {
+                    "Authorization": "Bearer TOKEN",
+                    "Content-Length": "98",
+                    "Content-Type": "application/json",
+                    "Host": "httpbin.org",
+                    "X-Amzn-Trace-Id": "Root=1-5f433313-d089c8ecd1826d68ad928ca8"
+                },
+                "json": "",
+                "origin": "124.183.144.55",
+                "url": "https://httpbin.org/post"
+            }
+        }
+    }

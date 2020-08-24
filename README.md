@@ -22,42 +22,44 @@ No explicit use of CURL (e.g. curl_exec()) has been used.
 
 #### Example of use 
 
-      http://homestead.test/send_http_request?request_method=GET&url=https://google.com&http_headers=Content-Type: text/html; charset=ISO-8859-1
+    http://homestead.test/send_http_request?request_method=GET&url=https://google.com&http_headers=Content-Type: text/html; charset=ISO-8859-1
 
 Another option
 
-      http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://google.com","http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
+    http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://google.com","http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
 
 404 example
 
-      http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://httpbin.org/get_404","http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
+    http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://httpbin.org/get_404","http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
 
 JsonDecodeException example
 
-      http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://httpbin.org/get_404,"http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
+    http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://httpbin.org/get_404,"http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
 
 POST example with json body
 
-      http://homestead.test/send_http_request_with_json_parameters_and_json_payload?q={"request_method":"POST","url":"https://httpbin.org/post","http_headers":["Content-type: application/x-www-form-urlencoded"]}
+    http://homestead.test/send_http_request_with_json_parameters_and_json_payload?q={"request_method":"POST","url":"https://httpbin.org/post","http_headers":["Content-type: application/x-www-form-urlencoded"]}
 
 body
 
-        {
-            "ok": "1",
-            "payload": [
-                "data"
-            ]
-        }
+    {
+        "ok": "1",
+        "payload": [
+            "data"
+        ]
+    }
 
-the last example
+The last example
 
-http://homestead.test/send_http_request_with_json_parameters_and_json_payload?q={"request_method":"POST","url":"https://www.mydomain.com/assessment-endpoint.php","http_headers":["Authorization: Bearer TOKEN", "Content-type: application/json"]}
+    http://homestead.test/send_http_request_with_json_parameters_and_json_payload?q={"request_method":"POST","url":"https://www.mydomain.com/assessment-endpoint.php","http_headers":["Authorization: Bearer TOKEN", "Content-type: application/json"]}
 
-        {
-          "name": "Eugene",
-          "email": "test@gmail.com",
-          "url": "https://github.com/Eugene-Melbourne/-HTTP_client-"
-        }
+body 
+
+    {
+      "name": "Eugene",
+      "email": "test@gmail.com",
+      "url": "https://github.com/Eugene-Melbourne/-HTTP_client-"
+    }
 
 Example response :
 

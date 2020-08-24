@@ -14,14 +14,23 @@ class Controller
     public static function sendHttpRequest(Request $request): array
     {
         $url           = $request->url;
-        $httpHeader    = $request->http_headers;
+        $httpHeaders   = $request->http_headers;
         $requestMethod = $request->request_method;
+
+        $httpHeaders = json_decode($request->http_headers, true);
+        if (is_null($httpHeaders)) {
+
+            throw new JsonDecodeException('decoding params');
+        }
 
         $httpRequest = (new HttpRequest())
             ->setUrl($url)
             ->setRequestMethod($requestMethod)
-            ->addHttpHeader($httpHeader)
             ->setTimeout(3);
+
+        foreach ($httpHeaders as $key => $value) {
+            $httpRequest->addHttpHeader($key, $value);
+        }
 
         /* @var $httpResponse HttpResponse */
         $httpResponse = $httpRequest->makeRequest();

@@ -37,9 +37,9 @@ class HttpRequest
     }
 
 
-    public function addHttpHeader(string $header): self
+    public function addHttpHeader(string $key, string $value): self
     {
-        $this->headers[] = $header;
+        $this->headers[$key] = $value;
 
         return $this;
     }
@@ -75,21 +75,39 @@ class HttpRequest
     }
 
 
+    private function getAllHeadersAsString(): string
+    {
+        $headers = [];
+        foreach ($this->headers as $key => $value) {
+            $headers[] = $key . ': ' . $value;
+        }
+        $glue        = "\r\n";
+        $httpHeaders = implode($glue, $headers);
+
+        return $httpHeaders;
+    }
+
+
     public function makeRequest(): HttpResponse
     {
-        $host          = parse_url($this->url, PHP_URL_HOST);
-        $content       = http_build_query($this->body ?? []);
-        $contentlength = strlen($content);
+        $content     = null;
+        $contentType = $this->headers["Content-type"] ?? null;
+        $contentType = trim(explode(';', $contentType)[0]); // for text/html; charset=ISO-8859-1
 
-        $this->headers[] = 'Content-Length: ' . $contentlength;
-        $this->headers[] = 'Host: ' . $host;
-        $glue            = "\r\n";
-        $httpHeaders     = implode($glue, $this->headers);
+        if ($contentType === "application/json") {
+            $content = json_encode($this->body ?? []);
+        }
+        if ($contentType === "application/x-www-form-urlencoded") {
+            $content = http_build_query($this->body ?? []);
+        }
+
+        //$this->headers['Host']           = parse_url($this->url, PHP_URL_HOST);
+        $this->headers['Content-Length'] = strlen($content);
 
         $options = [
             'http' => [
                 'method'  => $this->requestMethod,
-                'header'  => $httpHeaders,
+                'header'  => $this->getAllHeadersAsString(),
                 'content' => $content,
                 'timeout' => $this->timeout, //seconds
             ]

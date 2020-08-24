@@ -17,6 +17,8 @@ No explicit use of CURL (e.g. curl_exec()) has been used.
 * Send custom HTTP headers
 * Erroneous HTTP response codes (e.g. 4xx, 5xx) throw an exception
 * Any JSON conversion errors throw an exception
+* Send JSON payloads
+* All JSON payloads can be passed in as associative arrays
 
 #### Example of use 
 
@@ -34,11 +36,17 @@ JsonDecodeException example
 
       http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://httpbin.org/get_404,"http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
 
+POST example with json body
 
-Comming soon
+      http://homestead.test/send_http_request_with_json_parameters_and_json_payload?q={"request_method":"POST","url":"https://httpbin.org/post","http_headers":["Content-type: application/x-www-form-urlencoded"]}
 
-* Send JSON payloads
-* All JSON payloads must be passed in as associative arrays
+body
 
+        {
+            "ok": "1",
+            "payload": [
+                "data"
+            ]
+        }
 
 

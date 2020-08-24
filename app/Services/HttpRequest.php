@@ -18,6 +18,7 @@ class HttpRequest
     private $headers = [];
     private $requestMethod;
     private $timeout;
+    private $body;
 
 
     public function setUrl(string $url): self
@@ -66,17 +67,27 @@ class HttpRequest
     }
 
 
+    public function setBody(array $body = null): self
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+
     public function makeRequest(): HttpResponse
     {
         $glue        = "\r\n";
         $httpHeaders = implode($glue, $this->headers);
 
-        $content = [];
+
+        $content = http_build_query($this->body ?? []);
+
         $options = [
             'http' => [
                 'method'  => $this->requestMethod,
                 'header'  => $httpHeaders,
-                'content' => http_build_query($content),
+                'content' => $content,
                 'timeout' => $this->timeout, //seconds
             ]
         ];

@@ -30,7 +30,9 @@ Another option
 
       http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://httpbin.org/get_404","http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
 
+JsonDecodeException example
 
+      http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://httpbin.org/get_404,"http_headers":["Content-Type: text/html; charset=ISO-8859-1"]}
 Comming soon
 
 * Send JSON payloads

@@ -32,10 +32,6 @@ Another option
 
     GET http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://httpbin.org/get_404","http_headers":{"Content-Type": "text/html; charset=ISO-8859-1"}}
 
-JsonDecodeException example
-
-    GET http://homestead.test/send_http_request_with_json_parameters?q={"request_method":"GET","url":"https://httpbin.org/get_404,"http_headers":{"Content-Type": "text/html; charset=ISO-8859-1"}}
-
 WWW-FORM POST example from json body
 
     GET http://homestead.test/send_http_request_with_json_parameters_and_json_payload?q={"request_method":"POST","url":"https://httpbin.org/post","http_headers":{"Content-type": "application/x-www-form-urlencoded"}}

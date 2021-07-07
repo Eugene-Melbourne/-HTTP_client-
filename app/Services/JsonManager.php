@@ -2,61 +2,40 @@
 
 namespace App\Services;
 
-use App\Exceptions\JsonDecodeException;
-
 class JsonManager
 {
 
 
-    private static function utf8_encode(array $in): array
+    public function json_encode($in): ?string
     {
-        $newArray = [];
-        foreach ($in as $key => $record) {
-            $key = utf8_encode($key);
-            if (is_array($record)) {
-                $newArray[$key] = self::utf8_encode($record);
-            } elseif (is_object($record)) {
-                $newArray[$key] = self::utf8_encode((array) $record);
-            } else {
-                $newArray[$key] = utf8_encode($record);
-            }
+        $json = json_encode($in, JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_SUBSTITUTE);
+
+        $haystack = ['null', '[]', '{}', '""'];
+
+        if (in_array($json, $haystack)) {
+
+            return null;
         }
-
-        return $newArray;
-    }
-
-
-    public function json_encode($in): string
-    {
-        if (is_object($in)) {
-            $in = (array) $in;
-        }
-
-        if (is_array($in)) {
-            $in = self::utf8_encode($in);
-        }
-
-        $json = json_encode($in);
 
         return $json;
     }
 
 
-    public function json_decode(string $in = null): array
+    /**
+     * @return mixed
+     */
+    public function json_decode(?string $in)
     {
-        if (is_null($in)) {
+        $haystack = [null, 'null', '[]', '{}', '""'];
 
-            return [];
+        if (in_array($in, $haystack)) {
+
+            return null;
         }
 
-        $array = json_decode($in, true);
+        $value = json_decode($in, true, 512, JSON_THROW_ON_ERROR | JSON_INVALID_UTF8_SUBSTITUTE);
 
-        if (is_null($array)) {
-
-            throw new JsonDecodeException();
-        }
-
-        return $array;
+        return $value;
     }
 
 
